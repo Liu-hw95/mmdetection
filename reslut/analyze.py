@@ -1,14 +1,20 @@
-#用于分析数据样本
+#用于分析数据样本与测试结果
 
 import json
 import cv2
 import os
 from tqdm import tqdm
 
-data_root = "/home/w/Desktop/TC/data/"
+#test
+# data_root = "/home/liusiyu/liuxin/mmdetection/data/coco/"
+# imageRoot = data_root + "testimages/"
+# imageOutRoot = '/home/liusiyu/liuxin/mmdetection/data/test_temp/'
+# annFilePath = '/home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_r50_fpn_1x/202002051610/reslut.json'
+
+data_root = "/home/liusiyu/liuxin/mmdetection/data/coco/"
 imageRoot = data_root + "images/"
-imageOutRoot = data_root + "oImageBBox/"
-annFilePath = data_root + 'train/annotationsw.json'
+imageOutRoot = '/home/liusiyu/liuxin/mmdetection/data/test_temp/'
+annFilePath = data_root + 'annotations/train2017.json'
 
 def getBBoxById(annFile, imageId):
     temp = []
@@ -35,10 +41,15 @@ with open(annFilePath, 'r') as F:
         for bboxInfo in bbox:
             coordinate = bboxInfo['bbox']
             categoryId = bboxInfo['category_id']
+            score=None
+            if 'score' in bboxInfo.keys():
+                score=bboxInfo['score']
+            text='{}:{}'.format(categoryId,score)
             image = cv2.rectangle(image, (int(coordinate[0]), int(coordinate[1])),
                                   (int(coordinate[2] + coordinate[0]), int(coordinate[3] + coordinate[1])), (0, 0, 255),
                                   2)
-            image = cv2.putText(image, str(int(categoryId)), (int(coordinate[0]), int(coordinate[1])),
+
+            image = cv2.putText(image, text, (int(coordinate[0]), int(coordinate[1])),
                                 cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0, 255, 0), 2)
 
         cv2.imwrite(imageOutPath, image)

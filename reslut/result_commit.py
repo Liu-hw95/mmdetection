@@ -152,8 +152,8 @@ def main():
 
     parser = argparse.ArgumentParser(description="Generate result")
     parser.add_argument("--test_input",default='/home/liusiyu/liuxin/mmdetection/data/coco/annotations/test2017.json',help="test_json path", type=str,)
-    parser.add_argument('--reslut_input', default='/home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_dconv_c3-c5_r50_fpn_1x/202002041723_pg/reslut.bbox.json',help="result_json path", type=str,)
-    parser.add_argument('-o', "--out",default='/home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_dconv_c3-c5_r50_fpn_1x/202002041723_pg/reslut.json',help="Save path", type=str,)
+    parser.add_argument('--reslut_input', default='/home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_r50_fpn_1x/202002051610/reslut.bbox.json',help="result_json path", type=str,)
+    parser.add_argument('-o', "--out",default='/home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_r50_fpn_1x/202002051610/reslut.json',help="Save path", type=str,)
     args = parser.parse_args()
     # 	model2make_json = args.model
     test_set = COCO_Set('test_json', images_path=None)

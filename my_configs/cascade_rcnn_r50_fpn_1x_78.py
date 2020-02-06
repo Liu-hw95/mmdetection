@@ -239,8 +239,8 @@ log_level = 'INFO'
 import datetime
 a=datetime.datetime.now().strftime('%Y%m%d%H%M')
 work_dir = '/home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_r50_fpn_1x/{}'.format(a)
-load_from = "/home/liusiyu/liuxin/mmdetection/model/cascade_rcnn_r50_fpn_1x_20190501-3b6211ab.pth"
-# load_from = "/datassd/yuejian/mmdetection/work_dirs/20200118134853/epoch_12.pth"
+# load_from = "/home/liusiyu/liuxin/mmdetection/model/cascade_rcnn_r50_fpn_1x_20190501-3b6211ab.pth"
+load_from = "/home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_r50_fpn_1x/latest.pth"
 resume_from = None
 workflow = [
     ('train', 1)]
