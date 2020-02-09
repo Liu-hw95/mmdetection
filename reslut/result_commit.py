@@ -112,7 +112,7 @@ class COCO_Set():
                   {"supercategory": "\u55b7\u7801\u6b63\u5e38", "id": 9, "name": "\u55b7\u7801\u6b63\u5e38"},
                   {"supercategory": "\u74f6\u76d6\u65ad\u70b9", "id": 5, "name": "\u74f6\u76d6\u65ad\u70b9"},
                   {"supercategory": "\u74f6\u76d6\u574f\u8fb9", "id": 3, "name": "\u74f6\u76d6\u574f\u8fb9"},
-                  {"supercategory": "\u74f6\u76d6\u6253\u65cb", "id": 4, "name": "\u74f6\u76d6\u6253\u65cb"},
+                  {"supercategory": "\u74f6\u76d6\u6253\u65cb", "id": 4, "name": "\u74f6\u76d6\ \u65cb"},
                   {"supercategory": "\u80cc\u666f", "id": 0, "name": "\u80cc\u666f"},
                   {"supercategory": "\u74f6\u76d6\u53d8\u5f62", "id": 2, "name": "\u74f6\u76d6\u53d8\u5f62"},
                   {"supercategory": "\u6807\u8d34\u6c14\u6ce1", "id": 8, "name": "\u6807\u8d34\u6c14\u6ce1"},
@@ -151,9 +151,11 @@ class COCO_Set():
 def main():
 
     parser = argparse.ArgumentParser(description="Generate result")
-    parser.add_argument("--test_input",default='/home/liusiyu/liuxin/mmdetection/data/coco/annotations/test2017.json',help="test_json path", type=str,)
-    parser.add_argument('--reslut_input', default='/home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_r50_fpn_1x/202002051610/reslut.bbox.json',help="result_json path", type=str,)
-    parser.add_argument('-o', "--out",default='/home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_r50_fpn_1x/202002051610/reslut.json',help="Save path", type=str,)
+    parser.add_argument("--test_input",default='/home/liusiyu/liuxin/mmdetection/data/coco/annotations/pgtest2017.json',help="test_json path", type=str,)
+    parser.add_argument('--reslut_input', default=
+    '/home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_dconv_c3-c5_r50_fpn_1x/reslut.bbox.json',help="result_json path", type=str,)
+    parser.add_argument('-o', "--out",default=
+    '/home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_dconv_c3-c5_r50_fpn_1x/reslut.json',help="Save path", type=str,)
     args = parser.parse_args()
     # 	model2make_json = args.model
     test_set = COCO_Set('test_json', images_path=None)
@@ -163,12 +165,12 @@ def main():
     test_set.images=tejson_file['images']
     for index ,i in enumerate(resjson_file):
         if i["category_id"] == 6 or i["category_id"] == 7 or i["category_id"] == 8:
-            if i["score"] > 0.05:
+            if i["score"] > 0.005:
                 score = i["score"]
                 i["score"] = round(score, 4)
                 test_set.annotations.append(i)
         else:
-            if i["score"] > 0.000286:
+            if i["score"] > 0.005:
                 score = i["score"]
                 i["score"] = round(score, 4)
                 test_set.annotations.append(i)

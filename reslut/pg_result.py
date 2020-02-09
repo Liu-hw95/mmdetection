@@ -82,4 +82,6 @@
 # 	result_from_dir()
 
 
-#tools/dist_test.sh /home/liusiyu/liuxin/mmdetection/my_configs/cascade_rcnn_r50_fpn_1x_78.py /home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_r50_fpn_1x/202002051610/latest.pth 4 --json_out /home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_r50_fpn_1x/202002051610/reslut.json
+tools/dist_test.sh /home/liusiyu/liuxin/mmdetection/my_configs/cascade_rcnn_dconv_c3-c5_r50_fpn_1x.py \
+/home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_dconv_c3-c5_r50_fpn_1x/202002081440_pg/latest.pth 4 \
+--json_out /home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_dconv_c3-c5_r50_fpn_1x/reslut.json

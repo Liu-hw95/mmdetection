@@ -157,7 +157,7 @@ test_cfg = dict(
         nms_thr=0.7,
         min_bbox_size=0),
     rcnn=dict(
-        score_thr=0.02, nms=dict(type='nms', iou_thr=0.5), max_per_img=100))
+        score_thr=0.05, nms=dict(type='nms', iou_thr=0.7), max_per_img=100))
 # dataset settings
 dataset_type = 'CocoDataset'
 data_root = 'data/coco/'
@@ -239,3 +239,9 @@ load_from = "/home/liusiyu/liuxin/mmdetection/model/cascade_rcnn_dconv_c3-c5_r50
 resume_from = None
 workflow = [
     ('train', 1)]
+
+# tools/dist_train.sh my_configs/cascade_rcnn_dconv_c3-c5_r50_fpn_1x.py  2 --validate
+#
+# tools/dist_test.sh my_configs/cascade_rcnn_dconv_c3-c5_r50_fpn_1x.py \
+# /home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_dconv_c3-c5_r50_fpn_1x/202002091357/epoch_20.pth 4 \
+# --json_out /home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_dconv_c3-c5_r50_fpn_1x/reslut.json

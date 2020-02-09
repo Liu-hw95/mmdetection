@@ -173,7 +173,7 @@ img_norm_cfg = dict(
 train_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(type='LoadAnnotations', with_bbox=True),
-    dict(type='Resize', img_scale=[(1333, 800), (1333, 1200)], multiscale_mode='range',keep_ratio=True), #这里可以更换多尺度[(),()]
+    dict(type='Resize', img_scale=[(1333, 800), (1333, 600)], multiscale_mode='range',keep_ratio=True), #这里可以更换多尺度[(),()]
     dict(type='RandomFlip', flip_ratio=0.5),
     dict(type='Normalize', **img_norm_cfg),
     dict(type='Pad', size_divisor=32),
@@ -184,7 +184,7 @@ test_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(
         type='MultiScaleFlipAug',
-        img_scale=[(1333, 800), (1333, 1200)],
+        img_scale=[(1333, 800), (1333, 600)],
         flip=False,
         transforms=[
             dict(type='Resize', keep_ratio=True),
@@ -210,8 +210,8 @@ data = dict(
         pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'annotations/test2017.json',
-        img_prefix=data_root + 'testimages/',
+        ann_file=data_root + 'annotations/val2017.json',
+        img_prefix=data_root + 'images/',
         pipeline=test_pipeline))
 # optimizer
 optimizer = dict(type='SGD', lr=0.005, momentum=0.9, weight_decay=0.0001) # lr = 0.00125*batch_size，不能过大，否则梯度爆炸。
@@ -226,21 +226,21 @@ lr_config = dict(
 checkpoint_config = dict(interval=1)
 # yapf:disable
 log_config = dict(
-    interval=50,
+    interval=200,
     hooks=[
         dict(type='TextLoggerHook'), # 控制台输出信息的风格
         # dict(type='TensorboardLoggerHook') # 需要安装tensorflow and tensorboard才可以使用
     ])
 # yapf:enable
 # runtime settings
-total_epochs =25
+total_epochs =30
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
 import datetime
 a=datetime.datetime.now().strftime('%Y%m%d%H%M')
 work_dir = '/home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_r50_fpn_1x/{}'.format(a)
-# load_from = "/home/liusiyu/liuxin/mmdetection/model/cascade_rcnn_r50_fpn_1x_20190501-3b6211ab.pth"
-load_from = "/home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_r50_fpn_1x/latest.pth"
+load_from = "/home/liusiyu/liuxin/mmdetection/model/cascade_rcnn_r50_fpn_1x_20190501-3b6211ab.pth"
+# load_from = "/home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_r50_fpn_1x/latest.pth"
 resume_from = None
 workflow = [
     ('train', 1)]

@@ -304,3 +304,8 @@ load_from = "/home/liusiyu/liuxin/mmdetection/model/cascade_rcnn_dconv_c3-c5_r50
 resume_from = None
 workflow = [
     ('train', 1)]
+
+tools/dist_test.sh /home/liusiyu/liuxin/mmdetection/my_configs/pg_baseline.py \
+/home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_dconv_c3-c5_r50_fpn_1x/0.78/202002031943_pg/epoch_19.pth 4 \
+--json_out /home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_dconv_c3-c5_r50_fpn_1x/reslut.json
+

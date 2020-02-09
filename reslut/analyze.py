@@ -6,15 +6,18 @@ import os
 from tqdm import tqdm
 
 #test
-# data_root = "/home/liusiyu/liuxin/mmdetection/data/coco/"
-# imageRoot = data_root + "testimages/"
-# imageOutRoot = '/home/liusiyu/liuxin/mmdetection/data/test_temp/'
-# annFilePath = '/home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_r50_fpn_1x/202002051610/reslut.json'
-
 data_root = "/home/liusiyu/liuxin/mmdetection/data/coco/"
-imageRoot = data_root + "images/"
-imageOutRoot = '/home/liusiyu/liuxin/mmdetection/data/test_temp/'
-annFilePath = data_root + 'annotations/train2017.json'
+imageRoot = data_root + "testimages/"
+imageOutRoot = \
+    '/home/liusiyu/liuxin/mmdetection/data/test_temp/'
+annFilePath = \
+'/home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_dconv_c3-c5_r50_fpn_1x/reslut.json'
+# data_root = "/home/liusiyu/liuxin/mmdetection/data/coco/"
+# imageRoot = data_root + "images/"
+# imageOutRoot = \
+#     '/home/liusiyu/liuxin/mmdetection/data/test_temp/'
+# annFilePath = \
+#     '/home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_r50_fpn_1x/202002062305/result.json'
 
 def getBBoxById(annFile, imageId):
     temp = []

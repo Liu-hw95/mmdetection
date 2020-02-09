@@ -34,7 +34,7 @@ model = dict(
         type='RPNHead',
         in_channels=256,
         feat_channels=256,
-        anchor_scales=[8],
+        anchor_scales=[11],   #scale
         anchor_ratios=[0.25,0.5,0.7, 1.0,1.33, 2.0,4.0,5.0,10.0],
         anchor_strides=[4, 8, 16, 32, 64],
         target_means=[.0, .0, .0, .0],
@@ -56,7 +56,7 @@ model = dict(
             in_channels=256,
             fc_out_channels=1024,
             roi_feat_size=7,
-            num_classes=8,
+            num_classes=11,
             target_means=[0., 0., 0., 0.],
             target_stds=[0.1, 0.1, 0.2, 0.2],
             reg_class_agnostic=True,
@@ -69,7 +69,7 @@ model = dict(
             in_channels=256,
             fc_out_channels=1024,
             roi_feat_size=7,
-            num_classes=8,
+            num_classes=11,
             target_means=[0., 0., 0., 0.],
             target_stds=[0.05, 0.05, 0.1, 0.1],
             reg_class_agnostic=True,
@@ -82,7 +82,7 @@ model = dict(
             in_channels=256,
             fc_out_channels=1024,
             roi_feat_size=7,
-            num_classes=8,
+            num_classes=11,
             target_means=[0., 0., 0., 0.],
             target_stds=[0.033, 0.033, 0.067, 0.067],
             reg_class_agnostic=True,
@@ -358,22 +358,22 @@ data = dict(
         times=3,
         dataset=dict(
             type=dataset_type,
-        ann_file=data_root + 'annotations/pgtrain2017.json',
+        ann_file=data_root + 'annotations/train2017.json',
         img_prefix=data_root + 'images/',
         pipeline=train_pipeline)),
     val=dict(
         type=dataset_type,
-        ann_file=data_root + 'annotations/pgval2017.json',
+        ann_file=data_root + 'annotations/val2017.json',
         img_prefix=data_root + 'images/',
         pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'annotations/pgtest2017.json',
+        ann_file=data_root + 'annotations/test2017.json',
         img_prefix=data_root + 'testimages/',
         pipeline=test_pipeline))
 # optimizer
 #  single  gpu  and  autoscale
-optimizer = dict(type='SGD', lr=0.05, momentum=0.9, weight_decay=0.0001)
+optimizer = dict(type='SGD', lr=0.02, momentum=0.9, weight_decay=0.0001)
 optimizer_config = dict(grad_clip=dict(max_norm=35, norm_type=2))
 # learning policy
 lr_config = dict(
@@ -399,8 +399,16 @@ log_level = 'INFO'
 import datetime
 a=datetime.datetime.now().strftime('%Y%m%d%H%M')+'_pg'
 work_dir = '/home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_dconv_c3-c5_r50_fpn_1x/{}'.format(a)
-load_from = "/home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_dconv_c3-c5_r50_fpn_1x/cascade_rcnn_dconv_c3-c5_r50_fpn_1x_20190125-dfa53166.pth"
+load_from = "/home/liusiyu/liuxin/mmdetection/model/cascade_rcnn_dconv_c3-c5_r50_fpn_1x_20190125-dfa53166.pth"
 # load_from = "/datassd/yuejian/mmdetection/work_dirs/20200118134853/epoch_12.pth"
 resume_from = None
 workflow = [
     ('train', 1)]
+
+# tools/dist_train.sh my_configs/pg_baseline.py  2 --validate
+
+#
+# tools/dist_test.sh /home/liusiyu/liuxin/mmdetection/my_configs/pg_baseline.py \
+# /home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_dconv_c3-c5_r50_fpn_1x/202002091234_pg/latest.pth 4 \
+# --json_out /home/liusiyu/liuxin/mmdetection/checkpoints/cascade_rcnn_dconv_c3-c5_r50_fpn_1x/reslut.json
+#

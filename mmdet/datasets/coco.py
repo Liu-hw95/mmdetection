@@ -124,18 +124,21 @@ from .registry import DATASETS
 @DATASETS.register_module
 class CocoDataset(CustomDataset):
 
-    CLASSES = ('背景', '瓶盖破损','瓶盖变形','瓶盖坏边','瓶盖打旋','瓶盖断点'
-               ,'标贴歪斜','标贴起皱','标贴气泡','喷码正常','喷码异常')
-    #CLASSES =('瓶盖破损', '瓶盖变形', '瓶盖坏边', '瓶盖打旋', '瓶盖断点' '喷码正常', '喷码异常')#pg
+    # CLASSES = ('瓶盖破损','瓶盖变形','瓶盖坏边','瓶盖打旋','瓶盖断点'
+    #            ,'标贴歪斜','标贴起皱','标贴气泡','喷码正常','喷码异常')
+    CLASSES =('瓶盖破损', '瓶盖变形', '瓶盖坏边', '瓶盖打旋', '瓶盖断点' '喷码正常', '喷码异常')#pg
     # CLASSES =('标贴歪斜','标贴起皱','标贴气泡')#p
     def load_annotations(self, ann_file):
         self.coco = COCO(ann_file)
         self.cat_ids = self.coco.getCatIds()
-        print(self.cat_ids)
+        # print(self.cat_ids)
         self.cat2label = {
             cat_id: i + 1
             for i, cat_id in enumerate(self.cat_ids)
         }
+        # print(self.cat2label)
+        # while(True):
+        #     pass
         self.img_ids = self.coco.getImgIds()
         img_infos = []
         for i in self.img_ids:
